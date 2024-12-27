@@ -14,3 +14,4 @@ D:\shoppingCart\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
 D:\shoppingCart\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
 D:\shoppingCart\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
 D:\shoppingCart\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+D:\shoppingCart\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.sourcelink.json

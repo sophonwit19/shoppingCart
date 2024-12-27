@@ -1,3 +1,6 @@
+using System;
+using System.Diagnostics;
+
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
@@ -32,39 +35,95 @@ namespace WinFormsApp1
 
         }
 
-        private void tbGreentaeQuantity_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        private void tbGreenteaQuantity_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //get amount
-            string strCoffeePrice = tbCoffeePrice.Text;
-            //get print
-            string strCoffeeQuantity = tbCoffeeQuantity.Text;
+            CalculateTotal();
+        }
 
-            string strGreenteaPrice = tbGreenteaPrice.Text;
-            string strGreenteaQuantity = tbGreenteaQuantity.Text;
+        private void CalculateTotal()
+        {
+            double coffeePrice = GetDoubleFromMaskedTextBox(tbCoffeePrice);
+            double coffeeQuantity = GetDoubleFromMaskedTextBox(tbCoffeeQuantity);
+            double greenTeaPrice = GetDoubleFromMaskedTextBox(tbGreenteaPrice);
+            double greenTeaQuantity = GetDoubleFromMaskedTextBox(tbGreenteaQuantity);
 
-            int  iCoffeePrice = 0, iCoffeeQuantity = 0, iGreenteaPrice = 0, iGreenteaQuantity =0,
+            double totalCoffee = chbCoffee.Checked ? coffeePrice * coffeeQuantity : 0;
+            double totalGreenTea = chbgreentea.Checked ? greenTeaPrice * greenTeaQuantity : 0;
 
-            try
-            { 
-                 if (chbCoffee.Checked)
-                 {
-                }
+            double total = totalCoffee + totalGreenTea;
+
+            tbtotal.Text = total.ToString();
+        }
+
+        private double GetDoubleFromMaskedTextBox(MaskedTextBox textBox)
+        {
+            double value;
+            if (double.TryParse(textBox.Text, out value))
+            {
+                return value;
+            }
+            return 0;
+        }
+
+        private void tbCash_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            CalculateChange();
+        }
+
+        private void CalculateChange()
+        {
+            int cash = GetIntFromMaskedTextBox(tbCash);
+            int total = GetIntFromMaskedTextBox(tbtotal);
+
+            int change = cash - total;
+            tbChange.Text = change.ToString();
+
+            int[] denominations = { 1000, 500, 100, 50, 20, 10, 5, 1 };
+            int[] changeCount = new int[denominations.Length];
+
+            for (int i = 0; i < denominations.Length; i++)
+            {
+                changeCount[i] = change / denominations[i];
+                change %= denominations[i];
             }
 
+            tb1000.Text = changeCount[0].ToString();
+            tb500.Text = changeCount[1].ToString();
+            tb100.Text = changeCount[2].ToString();
+            tb50.Text = changeCount[3].ToString();
+            tb20.Text = changeCount[4].ToString();
+            tb10.Text = changeCount[5].ToString();
+            tb5.Text = changeCount[6].ToString();
+            tb1.Text = changeCount[7].ToString();
+        }
 
-            //convert string to int
+        private int GetIntFromMaskedTextBox(MaskedTextBox textBox)
+        {
+            int value;
+            if (int.TryParse(textBox.Text, out value))
+            {
+                return value;
+            }
+            return 0;
+        }
 
+        private void label6_Click(object sender, EventArgs e)
+        {
 
-            //calculate total
-            //int iTotal = iCoffeePrice * iCoffeeQuantity;
-            //display total
-            tbtotal.Text = iTotal.ToString();
+        }
 
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
 
         }
     }
